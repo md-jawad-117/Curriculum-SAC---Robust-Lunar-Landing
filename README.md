@@ -1,5 +1,5 @@
 <p align="center">
-  <h1 align="center">🚀 Curriculum SAC — Robust Lunar Landing via Progressive Difficulty Training</h1>
+  <h1 align="center">🚀 Curriculum SAC - Robust Lunar Landing via Progressive Difficulty Training</h1>
 </p>
 
 <p align="center">
@@ -19,20 +19,20 @@
 ## 🎬 Demo
 
 <p align="center">
-  <img src="results/videos/demo.gif" alt="Curriculum SAC Landing Demo" width="700">
+  <video src="results/videos/demo.mp4" width="700" controls autoplay loop></video>
 </p>
 
 > The trained agent landing under heavy wind and turbulence (Stage 4) after progressive curriculum training. Custom visualization shows trajectory trail, real-time engine thrust, velocity indicators, and leg contact status.
 
-https://github.com/user-attachments/assets/YOUR_VIDEO_ID_HERE
+https://github.com/md-jawad-117/Curriculum-SAC---Robust-Lunar-Landing/blob/main/results/videos/demo.mp4
 
 ---
 
 ## 📌 Overview
 
-This project presents a **Curriculum Learning** approach to training a deep reinforcement learning agent for the `LunarLanderContinuous-v3` task. Rather than training directly on the hardest environment configuration — which leads to slow, unstable learning — we progressively increase the difficulty across four stages, from calm conditions to heavy wind and turbulence. The agent automatically advances to the next stage once it demonstrates consistent competence at the current level.
+This project presents a **Curriculum Learning** approach to training a deep reinforcement learning agent for the `LunarLanderContinuous-v3` task. Rather than training directly on the hardest environment configuration, which leads to slow, unstable learning, we progressively increase the difficulty across four stages, from calm conditions to heavy wind and turbulence. The agent automatically advances to the next stage once it demonstrates consistent competence at the current level.
 
-The core algorithm is **Soft Actor-Critic (SAC)**, implemented entirely from scratch in PyTorch without relying on external RL libraries like Stable-Baselines3. SAC was chosen for its sample efficiency, stability in continuous action spaces, and direct relevance to real-world robotic control — it is the de facto algorithm used in modern sim-to-real robot learning pipelines.
+The core algorithm is **Soft Actor-Critic (SAC)**, implemented entirely from scratch in PyTorch without relying on external RL libraries like Stable-Baselines3. SAC was chosen for its sample efficiency, stability in continuous action spaces, and direct relevance to real-world robotic control, it is the de facto algorithm used in modern sim-to-real robot learning pipelines.
 
 The project also includes a **baseline comparison**: a standard SAC agent trained directly on the hardest configuration from episode one. This controlled experiment demonstrates that curriculum-based training converges faster and produces more robust landing policies.
 
@@ -50,7 +50,7 @@ When RL agents are trained directly on difficult tasks, they face a classic expl
 
 ### Curriculum Learning as a Solution
 
-Curriculum Learning draws from how humans and animals learn — starting with simple examples before progressing to harder ones. We structure the training into progressive stages where environmental difficulty increases only after the agent has mastered the current level.
+Curriculum Learning draws from how humans and animals learn, starting with simple examples before progressing to harder ones. We structure the training into progressive stages where environmental difficulty increases only after the agent has mastered the current level.
 
 This approach mirrors real-world robotics training. When training a physical robot to perform manipulation or locomotion, engineers typically begin in simplified conditions (low friction, slow speeds, no external disturbances) and gradually introduce realistic perturbations. This principle, central to **sim-to-real transfer**, ensures the robot builds a stable foundation of motor skills before encountering the full complexity of the real world.
 
@@ -59,7 +59,7 @@ This approach mirrors real-world robotics training. When training a physical rob
 Soft Actor-Critic is an off-policy, maximum-entropy deep RL algorithm designed for continuous action spaces. It offers several advantages that make it the standard choice for robotic applications:
 
 - **Entropy regularization** encourages exploration by maximizing both expected reward and policy entropy, preventing premature convergence to suboptimal deterministic strategies.
-- **Off-policy learning** with a replay buffer enables high sample efficiency — critical when environment interactions are expensive (as with real robots).
+- **Off-policy learning** with a replay buffer enables high sample efficiency, critical when environment interactions are expensive (as with real robots).
 - **Twin Q-networks** with clipped double-Q reduce value overestimation, a common failure mode in actor-critic methods.
 - **Automatic entropy tuning** adjusts the exploration-exploitation balance dynamically during training.
 
@@ -91,7 +91,7 @@ The `CurriculumScheduler` manages stage progression based on a sliding-window pe
 └─────────────┘                 └─────────────┘                 └─────────────┘                 └─────────────┘
 ```
 
-**Promotion Rule:** The agent advances when its average return over the last 30 episodes exceeds the stage-specific threshold. The thresholds decrease at higher stages (200 → 180 → 160) to account for the inherently lower ceiling in harder conditions. There is no demotion — progression is forward-only.
+**Promotion Rule:** The agent advances when its average return over the last 30 episodes exceeds the stage-specific threshold. The thresholds decrease at higher stages (200 → 180 → 160) to account for the inherently lower ceiling in harder conditions. There is no demotion, progression is forward-only.
 
 ---
 
@@ -130,8 +130,8 @@ The curriculum approach is a concrete implementation of the training methodology
 
 | Property | Value |
 |----------|-------|
-| **State space** | 8D continuous — x, y, velocity_x, velocity_y, angle, angular_velocity, leg_left_contact, leg_right_contact |
-| **Action space** | 2D continuous — main engine thrust [-1, 1], side engine thrust [-1, 1] |
+| **State space** | 8D continuous - x, y, velocity_x, velocity_y, angle, angular_velocity, leg_left_contact, leg_right_contact |
+| **Action space** | 2D continuous - main engine thrust [-1, 1], side engine thrust [-1, 1] |
 | **Reward** | +200 for landing between flags, bonus for engines off, penalties for crashing and fuel usage |
 | **Solved** | Mean return ≥ 200 over 100 consecutive episodes |
 | **Configurable** | `enable_wind`, `wind_power`, `turbulence_power` |
@@ -171,12 +171,12 @@ The curriculum agent (blue) reaches stable high-reward performance faster than t
 
 The project includes a custom pygame-based renderer that replaces the default Gymnasium viewer with a more visually distinctive simulation:
 
-- **Starry sky** — gradient dark navy background with ~120 twinkling stars and glow effects
-- **Lunar terrain** — procedurally generated surface with craters, scattered rocks, and terrain contour
-- **Custom lander** — metallic hexagonal body with blue accent stripe, viewport window, articulated landing legs, animated main/side engine flames with particle sparks
-- **HUD panel** — real-time stage name, episode/step counter, color-coded reward, wind/turbulence info, engine thrust bars, velocity readout, and leg contact indicators
-- **Trajectory trail** — fading blue path showing the lander's descent trajectory
-- **Status overlay** — "LANDED!" / "CRASHED!" feedback on episode completion
+- **Starry sky** - gradient dark navy background with ~120 twinkling stars and glow effects
+- **Lunar terrain** - procedurally generated surface with craters, scattered rocks, and terrain contour
+- **Custom lander** - metallic hexagonal body with blue accent stripe, viewport window, articulated landing legs, animated main/side engine flames with particle sparks
+- **HUD panel** - real-time stage name, episode/step counter, color-coded reward, wind/turbulence info, engine thrust bars, velocity readout, and leg contact indicators
+- **Trajectory trail** - fading blue path showing the lander's descent trajectory
+- **Status overlay** - "LANDED!" / "CRASHED!" feedback on episode completion
 
 <p align="center">
   <img src="results/videos/screenshot.png" alt="Custom Renderer Screenshot" width="600">
@@ -227,7 +227,7 @@ sac-lunar-lander/
 
 - Python 3.10 or higher
 - pip package manager
-- (Optional) NVIDIA GPU with CUDA — CPU works fine for this environment
+- (Optional) NVIDIA GPU with CUDA - CPU works fine for this environment
 
 ### Step-by-Step Setup
 
@@ -275,7 +275,7 @@ pip install imageio[ffmpeg]
 python train_curriculum.py
 ```
 
-This runs two full training experiments sequentially — **curriculum SAC** (progressive difficulty) and **baseline SAC** (hardest difficulty from start) — then generates a comparison plot. Estimated time: ~2-3 hours on CPU.
+This runs two full training experiments sequentially - **curriculum SAC** (progressive difficulty) and **baseline SAC** (hardest difficulty from start) - then generates a comparison plot. Estimated time: ~2-3 hours on CPU.
 
 To change the number of episodes, edit the `EPISODES` variable at the bottom of `train_curriculum.py`.
 
@@ -336,11 +336,11 @@ After training, download `models/` and `results/` from `/kaggle/working/` to you
 
 This project establishes a foundation that can be extended toward real robotics applications:
 
-- **Sim-to-Real Transfer** — Apply the curriculum approach to MuJoCo environments (HalfCheetah, Ant) with domain randomization over physics parameters (mass, friction, actuator delay)
-- **Hierarchical RL** — Add a high-level planner that selects landing strategies while the low-level SAC handles continuous control
-- **Multi-Objective Optimization** — Extend the reward to a Pareto front balancing landing accuracy vs fuel efficiency
-- **Adversarial Robustness** — Train a disturbance agent that learns worst-case wind patterns (minimax formulation) to produce maximally robust policies
-- **Real Hardware Deployment** — Transfer learned policies to a physical drone or quadrotor with onboard compute
+- **Sim-to-Real Transfer** - Apply the curriculum approach to MuJoCo environments (HalfCheetah, Ant) with domain randomization over physics parameters (mass, friction, actuator delay)
+- **Hierarchical RL** - Add a high-level planner that selects landing strategies while the low-level SAC handles continuous control
+- **Multi-Objective Optimization** - Extend the reward to a Pareto front balancing landing accuracy vs fuel efficiency
+- **Adversarial Robustness** - Train a disturbance agent that learns worst-case wind patterns (minimax formulation) to produce maximally robust policies
+- **Real Hardware Deployment** - Transfer learned policies to a physical drone or quadrotor with onboard compute
 
 ---
 
