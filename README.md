@@ -19,7 +19,7 @@
 ## 🎬 Demo
 
 <p align="center">
-  <video src="results/videos/demo.mp4" width="700" controls autoplay loop></video>
+  <video src="https://github.com/user-attachments/assets/ae602079-8e9b-4497-ae8e-91dc1032554e" width="700" controls autoplay loop></video>
 </p>
 
 > The trained agent landing under heavy wind and turbulence (Stage 4) after progressive curriculum training. Custom visualization shows trajectory trail, real-time engine thrust, velocity indicators, and leg contact status.
